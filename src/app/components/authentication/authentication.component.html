@@ -19,11 +19,11 @@
       </div>
 
       
-      <form *ngIf="isSignup" [formGroup]="RegisterForm" class="signup-form">
+      <form *ngIf="isSignup" [formGroup]="RegisterForm"  (ngSubmit)="onCreateAccount()" class="signup-form">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Full Name</mat-label>
-          <input matInput formControlName="fullname" required />
-          <mat-error *ngIf="RegisterForm.get('fullname')?.invalid">Enter Full Name </mat-error>
+          <input matInput formControlName="fullName" required />
+          <mat-error *ngIf="RegisterForm.get('fullName')?.invalid">Enter Full Name </mat-error>
         </mat-form-field>
 
 

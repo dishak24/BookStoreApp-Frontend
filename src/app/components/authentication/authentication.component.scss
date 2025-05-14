@@ -9,9 +9,10 @@
 .left-panel {
   background: #fff;
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
-  width: 300px; // reduced from 400px
+  width: 350px; // reduced from 400px
+  height: 430px; // reduced from 500px
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,12 +23,14 @@
     width: 200px; // reduced from 280px
     height: 200px;
     object-fit: cover;
-    margin-bottom: 20px;
+    align-content: center;
+    margin-top: 45%; ;
+    margin-bottom: 10%;
   }
 
   .text {
     font-weight: bold;
-    font-size: 1.4rem;
+    font-size: 1rem;
     text-align: center;
   }
 }
@@ -36,7 +39,7 @@
   background: white;
   padding: 25px;
   border-radius: 10px;
-  width: 280px;
+  width: 350px;
   margin-left: -40px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   min-height: 450px; 
@@ -167,3 +170,5 @@
     padding: 20px;
   }
 }
+
+
