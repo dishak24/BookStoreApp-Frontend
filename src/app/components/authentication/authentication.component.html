@@ -18,7 +18,7 @@
           (click)="showSignup()">SIGNUP</span>
       </div>
 
-      
+      <!-- signup form -->
       <form *ngIf="isSignup" [formGroup]="RegisterForm"  (ngSubmit)="onCreateAccount()" class="signup-form">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Full Name</mat-label>
@@ -51,8 +51,8 @@
         <button mat-flat-button color="warn" class="signup-btn" type="submit">Signup</button>
       </form>
       
-      
-      <form *ngIf="!isSignup" [formGroup]="LoginForm" class="signup-form">
+      <!-- Login form -->
+      <form *ngIf="!isSignup" [formGroup]="LoginForm" (ngSubmit)="onSubmit()" class="signup-form">
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email" required />

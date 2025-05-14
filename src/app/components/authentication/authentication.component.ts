@@ -38,7 +38,6 @@ export class AuthenticationComponent
   {
     this.isSignup = false;
   }
-
   
   ngOnInit(): void 
   {
@@ -160,5 +159,94 @@ export class AuthenticationComponent
         });
       
     }
+
+
+  onSubmit() 
+  {
+
+    if (this.LoginForm.invalid) {
+      const emailControl = this.LoginForm.get('email');
+      const passwordControl = this.LoginForm.get('password');
+  
+      // Show specific snackbar message based on what’s wrong
+      if (emailControl?.hasError('required')) 
+      {
+        this.snackbar.open('Email is required.', 'Close', 
+        {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
+      } 
+      else if (emailControl?.hasError('pattern')) 
+      {
+        this.snackbar.open('Enter a valid email address.', 'Close', 
+        {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
+      } 
+      else if (passwordControl?.hasError('required')) 
+      {
+        this.snackbar.open('Password is required.', 'Close', 
+        {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
+      } 
+      else if (passwordControl?.hasError('pattern')) 
+      {
+        this.snackbar.open(
+          'Password must be 8+ characters, with uppercase, lowercase, number, and special character.',
+          'Close',
+          {
+            duration: 4000,
+            panelClass: ['error-snackbar']
+          }
+        );
+      }
+      return;
+    }
+    console.log("Login data:", this.LoginForm.value);
+
+    const payload = 
+    {
+      email: this.LoginForm.value.email,
+      password: this.LoginForm.value.password
+    };
+
+    this.user.login(payload).subscribe({
+      next: (result: any) => 
+      {
+        console.log('Login successful:', result);
+
+        //Normalize token to ensure "Bearer " prefix
+        // Clean token and store it in localStorage
+        let token = result.data.accessToken;
+        if (token.startsWith('Bearer ')) 
+        {
+          token = token.replace('Bearer ', '');
+        }
+      // Store the token in localStorage
+        localStorage.setItem('Token', token);
+
+        this.snackbar.open('Login successful!', 'Close', 
+        {
+          duration: 3000,
+          panelClass: ['success-snackbar']
+        });
+
+        this.router.navigate(['/dashboard']);
+      },
+      error: (error) => 
+      {
+        console.error('Login failed:', error);
+
+        this.snackbar.open('Login failed!', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
+      }
+    });
+  }
   
 }
