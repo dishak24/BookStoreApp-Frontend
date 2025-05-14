@@ -1,0 +1,90 @@
+<div class="container">
+    <div class="left-panel">
+      <div>
+        <img src="assets/first.png" alt="Online Book Shopping" />
+      </div>
+      <p class="text">ONLINE BOOK SHOPPING</p>
+    </div>
+  
+    <div class="right-panel mat-elevation-z4">
+      <div class="tabs">
+        <span 
+          [class.active-tab]="!isSignup" 
+          [class.inactive-tab]="isSignup" 
+          (click)="showLogin()">LOGIN</span>
+        <span 
+          [class.active-tab]="isSignup" 
+          [class.inactive-tab]="!isSignup" 
+          (click)="showSignup()">SIGNUP</span>
+      </div>
+
+      
+      <form *ngIf="isSignup" [formGroup]="RegisterForm" class="signup-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Full Name</mat-label>
+          <input matInput formControlName="fullname" required />
+          <mat-error *ngIf="RegisterForm.get('fullname')?.invalid">Enter Full Name </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required />
+          <mat-error *ngIf="RegisterForm.get('email')?.invalid">Enter Email</mat-error>
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required />
+          <button mat-icon-button matSuffix (click)="togglePassword()" type="button">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="RegisterForm.get('password')?.invalid">Enter password</mat-error>
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Mobile Number</mat-label>
+          <input matInput formControlName="mobile" required />
+          <mat-error *ngIf="RegisterForm.get('mobile')?.invalid">Enter Mobile Number</mat-error>
+        </mat-form-field>
+      
+        <button mat-flat-button color="warn" class="signup-btn" type="submit">Signup</button>
+      </form>
+      
+      
+      <form *ngIf="!isSignup" [formGroup]="LoginForm" class="signup-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required />
+          <mat-error *ngIf="RegisterForm.get('email')?.invalid">Enter Email</mat-error>
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required />
+          <button mat-icon-button matSuffix (click)="togglePassword()" type="button">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="RegisterForm.get('password')?.invalid">Enter password</mat-error>
+        </mat-form-field>
+      
+        <div class="forgot-password">
+          <a>Forgot Password?</a>
+        </div>
+      
+        <button mat-flat-button color="warn" class="signup-btn" type="submit" >Login</button>
+      
+        <div class="or-separator">
+          <span>OR</span>
+        </div>
+      
+        <div class="social-buttons">
+          <button mat-stroked-button class="facebook-btn">Facebook</button>
+          <button mat-stroked-button class="google-btn">Google</button>
+        </div>
+       
+          
+      </form>    
+    </div>
+  </div>
+  
