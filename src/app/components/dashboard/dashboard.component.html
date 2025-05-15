@@ -1,1 +1,50 @@
-<p>dashboard works!</p>
+<body> 
+<!-- Header -->
+<mat-toolbar class="header">
+  <!-- Left section -->
+  <div class="left-section">
+    <div class="logo">
+      <mat-icon>menu_book</mat-icon>
+      <span class="brand-name">Bookstore</span>
+    </div>
+    <div class="search-container">
+      <div class="custom-search">
+        <button>
+    <mat-icon class="search-icon">search</mat-icon>
+  </button>
+  <input type="text" placeholder="Search ..." />
+  
+</div>
+
+    </div>
+  </div>
+
+  <!-- Right section -->
+    <div class="right-section">
+        <div class="icon-with-label">
+          <button mat-icon-button>
+            <mat-icon>person</mat-icon>
+          </button>
+          <span class="label">{{ username }}</span>
+        </div>
+        
+        <div class="icon-with-label">
+          <button mat-icon-button>
+            <mat-icon>shopping_cart</mat-icon>
+          </button>
+          <span class="label">Cart</span>
+        </div>
+    </div>
+</mat-toolbar>
+
+
+<!-- Main Content -->
+<div class="main-content">
+  
+</div>
+
+<!-- Footer -->
+<mat-toolbar color="primary" class="footer">
+  <span class="footer-text">Copyright © 2025, Bookstore Private Limited. All Rights Reserved</span>
+</mat-toolbar>
+ </body>
