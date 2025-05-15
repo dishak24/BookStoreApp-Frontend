@@ -16,6 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatSnackBarModule,
     ReactiveFormsModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    MatToolbarModule
 
   ],
   providers: [],
