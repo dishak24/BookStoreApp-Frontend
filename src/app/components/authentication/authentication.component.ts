@@ -61,6 +61,7 @@ export class AuthenticationComponent
   }
 
 
+  //Registration
   onCreateAccount() 
   {
       if (this.RegisterForm.invalid) 
@@ -160,7 +161,7 @@ export class AuthenticationComponent
       
     }
 
-
+  //login
   onSubmit() 
   {
 
@@ -228,6 +229,7 @@ export class AuthenticationComponent
         }
       // Store the token in localStorage
         localStorage.setItem('Token', token);
+        localStorage.setItem('user', JSON.stringify(result.data.name));
 
         this.snackbar.open('Login successful!', 'Close', 
         {
