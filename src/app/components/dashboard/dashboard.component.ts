@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { LogoutDilogComponent } from '../logout-dilog/logout-dilog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,6 +11,21 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit
 {
   username: string = '';
+
+  constructor(
+    private router: Router, 
+    private dialog: MatDialog,     
+  ) { }
+
+  //for searching
+  searchTerm: string = '';
+
+  selectedBook: any = null;
+
+  onBookSelected(book: any) 
+  {
+  this.selectedBook = book;
+  }
 
   ngOnInit(): void 
   {
@@ -24,6 +42,33 @@ export class DashboardComponent implements OnInit
     {
       this.username = 'Profile';
     }
-
   }
+
+  // Logout function
+  openLogoutDialog() 
+  {
+    const dialogRef = this.dialog.open(LogoutDilogComponent, 
+    {
+      width: '300px'
+    });
+  
+    dialogRef.afterClosed().subscribe(result => 
+    {
+      if (result) 
+      {
+        this.logout();
+      }
+    });
+  }
+
+  // Logout function
+  logout() 
+  {
+    //Remove token from local storage
+    localStorage.removeItem('Token'); 
+    console.log('User logged out !!!!'); 
+    // Navigate to the login page
+    this.router.navigate(['/auth']); 
+  }
+
 }

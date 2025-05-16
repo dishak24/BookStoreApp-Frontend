@@ -4,15 +4,15 @@
   <!-- Left section -->
   <div class="left-section">
     <div class="logo">
-      <mat-icon>menu_book</mat-icon>
-      <span class="brand-name">Bookstore</span>
+      <mat-icon [routerLink]="['/dashboard']">menu_book</mat-icon>
+      <span class="brand-name" [routerLink]="['/dashboard']">Bookstore</span>
     </div>
     <div class="search-container">
       <div class="custom-search">
         <button>
     <mat-icon class="search-icon">search</mat-icon>
   </button>
-  <input type="text" placeholder="Search ..." />
+  <input type="text" placeholder="Search ..." [(ngModel)]="searchTerm"  />
   
 </div>
 
@@ -22,11 +22,32 @@
   <!-- Right section -->
     <div class="right-section">
         <div class="icon-with-label">
-          <button mat-icon-button>
-            <mat-icon>person</mat-icon>
+          <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+            <mat-icon >person</mat-icon>
           </button>
           <span class="label">{{ username }}</span>
         </div>
+        <!-- Dropdown Menu -->
+              <mat-menu #profileMenu="matMenu" class="custom-profile-menu">
+                <div class="menu-header">
+                  <p class="greeting">Hello {{username}},</p>
+                </div>
+                <button mat-menu-item>
+                  <mat-icon>person_outline</mat-icon>
+                  <span>Profile</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>assignment</mat-icon>
+                  <span>My Orders</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>favorite_border</mat-icon>
+                  <span>My Wishlist</span>
+                </button>
+                <div class="logout-container">
+                  <button mat-button class="logout-btn" (click)="openLogoutDialog()">Logout</button>
+                </div>
+              </mat-menu>
         
         <div class="icon-with-label">
           <button mat-icon-button>
@@ -40,7 +61,15 @@
 
 <!-- Main Content -->
 <div class="main-content">
-  
+
+    <ng-container *ngIf="!selectedBook; else showDetails">
+      <app-books [searchTerm]="searchTerm" (bookClicked)="onBookSelected($event)"></app-books>
+    </ng-container>
+
+    <ng-template #showDetails>
+      <app-book-details [book]="selectedBook" (back)="selectedBook = null"></app-book-details>
+    </ng-template>
+    
 </div>
 
 <!-- Footer -->
