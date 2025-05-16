@@ -1,0 +1,66 @@
+<div class="books-container">
+  <div class="books-header">
+      <h2>Books <span class="book-length">({{ books.length }} Items)</span></h2>
+  
+      <!-- Sorting dropdown -->
+        <div class="sort-dropdown">
+          <button (click)="toggleSortMenu()">
+            Sort by {{ selectedSortLabel }}
+            <span [class.rotated]="isSortMenuOpen"><mat-icon>keyboard_arrow_down</mat-icon></span>
+            <!-- <span [class.rotated]="!isSortMenuOpen"><mat-icon>keyboard_arrow_up</mat-icon></span> -->
+          </button>
+          <ul *ngIf="isSortMenuOpen" class="sort-options">
+            <li (click)="sortBooks('Relevance')">Relevance</li>
+            <li (click)="sortBooks('Low To High')">Price: Low to High</li>
+            <li (click)="sortBooks('High To Low')">Price: High to Low</li>
+            <li (click)="sortBooks('Newest')">Newest Arrivals</li>
+          </ul>
+        </div>
+    </div>
+
+  <!-- books display -->
+  <div class="books-grid">
+    <div class="book-card" 
+    *ngFor="let book of books | pagination: currentPage : pageSize"
+    
+    (click)="onBookClick(book)">
+      <!-- <div div class="image-wrapper"> -->
+      <img [src]="book.bookImage" alt="{{ book.bookName }}" class="book-image" />
+      <!-- </div> -->
+
+      <div class="book-info">
+        <h3>{{ book.bookName }}</h3>
+        <p class="author">by {{ book.author }}</p>
+        
+        <div class="rating-box">
+          <span class="rating-value">4.5 <mat-icon class="star-icon">star</mat-icon></span>
+          <span class="rating-count">(20)</span>
+        </div>
+
+        <div class="price">
+          <span class="new">Rs. {{ book.discountPrice }}</span>
+          <span class="old">Rs. {{ book.price }}</span>
+        </div>
+        <div *ngIf="book.quantity === 0" class="stock-overlay">OUT OF STOCK</div>
+      </div>
+      
+    </div>
+  </div>
+  </div>
+
+
+<!-- Pagination block -->
+<div class="pagination">
+  <button (click)="prevPage()" [disabled]="currentPage === 1">&#8249;</button>
+
+  <button
+    *ngFor="let page of pages"
+    [class.active]="page === currentPage"
+    (click)="changePage(page)"
+  >
+    {{ page }}
+  </button>
+
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">&#8250;</button>
+</div>
+
