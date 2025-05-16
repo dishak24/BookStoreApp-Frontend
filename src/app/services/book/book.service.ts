@@ -34,7 +34,7 @@ export class BookService
   }
 
   //get book by id
-  getBookById(bookId: number)
+  getBookById(payload: any)
   {
     let httpOption = {
       headers: new HttpHeaders(
@@ -44,6 +44,21 @@ export class BookService
       })
     };
     console.log('Headers:', httpOption);
-    return this.http.getApi(`/api/books/${bookId}`, httpOption.headers);
+    return this.http.getApi(`/api/books/${payload}`, httpOption.headers);
   }
+
+  //add book to wishlist
+  addToWishlist(bookId: number)
+  {
+    let httpOption = {
+      headers: new HttpHeaders(
+      {
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json'
+      })
+    };
+    console.log('Headers:', httpOption);
+    return this.http.postApi(`/api/wishlists?bookId=${bookId}`,{}, httpOption.headers);
+  }
+  
 }
