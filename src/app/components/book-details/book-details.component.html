@@ -21,7 +21,7 @@
       <img [src]="book.bookImage" alt="{{ book.bookName }}" />
 
             <button mat-stroked-button class="add-to-bag">ADD TO BAG</button>
-            <button mat-stroked-button color="warn" class="wishlist">
+            <button mat-stroked-button color="warn" class="wishlist" (click)="addToWishlist(book.bookId)">
             <mat-icon>favorite_border</mat-icon>WISHLIST</button>
     </div>
 
