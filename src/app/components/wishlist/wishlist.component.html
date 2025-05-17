@@ -1,0 +1,37 @@
+<!-- Wishlist content -->
+<div class="order-page" *ngIf="!isLoading">
+  <div class="breadcrumb">
+    <a routerLink="/dashboard/home">Home</a> /
+    <span class="active">My wishlist</span>
+  </div>
+
+  <!-- Always visible title -->
+  <div class="order-header">
+    <h2>My Wishlist</h2>
+  </div>
+
+  <!-- No items message -->
+  <div *ngIf="wishlistArray.length === 0" class="no-items-message">
+    No items in wishlist.
+  </div>
+
+  <!-- Item list -->
+  <div class="order-list" *ngIf="wishlistArray.length > 0">
+    <div class="order-card" *ngFor="let item of wishlistArray; trackBy: trackByBookId">
+      <div class="book-image">
+        <img [src]="item.bookImage" alt="Book cover" />
+      </div>
+      <div class="book-details">
+        <h3>{{ item.bookName }}</h3>
+        <p class="author">by {{ item.author }}</p>
+        <p class="quantity">{{ item.quantity }}</p>
+        <p class="price">Rs. {{ item.price }}</p>
+      </div>
+
+      <div class="tooltip-wrapper" (click)="removeFromWishlist(item.bookId)">
+        <mat-icon class="delete-icon" aria-hidden="true">delete</mat-icon>
+        <span class="tooltip-text">Delete</span>
+      </div>
+    </div>
+  </div>
+</div>
