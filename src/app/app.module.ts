@@ -24,7 +24,7 @@ import { FormsModule } from '@angular/forms';
 import { LogoutDilogComponent } from './components/logout-dilog/logout-dilog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BookDetailsComponent } from './components/book-details/book-details.component';
-//import { AuthGuardService } from './services/auth-guard/auth-guard.service';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
 
 
 @NgModule({
@@ -36,6 +36,8 @@ import { BookDetailsComponent } from './components/book-details/book-details.com
     PaginationPipe,
     LogoutDilogComponent,
     BookDetailsComponent,
+    WishlistComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { BookDetailsComponent } from './components/book-details/book-details.com
     MatToolbarModule,
     MatMenuModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    
 
   ],
   providers: [],
