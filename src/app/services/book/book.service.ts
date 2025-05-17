@@ -60,5 +60,19 @@ export class BookService
     console.log('Headers:', httpOption);
     return this.http.postApi(`/api/wishlists?bookId=${bookId}`,{}, httpOption.headers);
   }
+
+  //get all books in wishlist
+  getWishlist()
+  {
+    let httpOption = {
+      headers: new HttpHeaders(
+      {
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json'
+      })
+    };
+    console.log('Headers:', httpOption);
+    return this.http.getApi('/api/wishlists', httpOption.headers);
+  }
   
 }
