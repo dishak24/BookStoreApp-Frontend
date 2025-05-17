@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthenticationComponent } from './components/authentication/authentication.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-//import { AuthGuardService } from './services/auth-guard/auth-guard.service';
+import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 import { BooksComponent } from './components/books/books.component';
 import { BookDetailsComponent } from './components/book-details/book-details.component';
 
@@ -15,7 +15,7 @@ const routes: Routes =
   {
     path: 'dashboard',
     component: DashboardComponent,
-    //canActivate: [AuthGuardService],//property - true or false 
+    canActivate: [AuthGuardService],//property - true or false 
     children: [
       { path: '', component: BooksComponent }, ] 
   },
