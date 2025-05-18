@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BookService } from 'src/app/services/book/book.service';
 
 @Component({
@@ -8,55 +9,64 @@ import { BookService } from 'src/app/services/book/book.service';
 })
 export class WishlistComponent 
 {
-    wishlistArray:any[]=[];
-    isLoading = true;
-    constructor(private wishlistservice:BookService){}
+    wishlistBooks: any[] = [];
 
-    ngOnInit(): void {
-      this.getWishlistItems();
+     @Output() goHome = new EventEmitter<void>();
 
-
+  // Triggered when user clicks Home
+    navigateHome() {
+      this.goHome.emit();
     }
 
-      getWishlistItems() 
-      {
-      
-        this.wishlistservice.getWishlist().subscribe({
-          next: (response: any) => {
-            this.wishlistArray = response.data.items.reverse().map((book:any, index:number) => ({
-              ...book,
-              //bookImage: `images/book${(index % 9) + 1}.png`
-            }));
-            console.log(response.data.items);
-            // this.filteredBooks = [...this.wishlistArray];
-            // this.totalBooks = this.filteredBooks.length;
-            this.isLoading = false;
-          },
-          error: (error: any) => {
-            console.error("Error fetching books:", error);
-            this.isLoading = false;
-          }
-        });
-      }
-      
-    trackByBookId(index: number, item: any): number 
-    {
-      return item.bookId;
+  constructor(private bookService: BookService, private snackBar: MatSnackBar) {}
+
+  ngOnInit() {
+    this.getWishlist();
+  }
+
+  getWishlist() {
+  this.bookService.getWishlist().subscribe({
+    next: (res: any) => {
+      console.log('Wishlist fetched successfully!', res);
+      this.wishlistBooks = res.data; // Assign to local variable
+    },
+    error: (err: any) => {
+      console.error('Error fetching wishlist', err);
     }
-      removeFromWishlist(bookId: number) {
-        // this.wishlistservice.removeFromWishlist(bookId).subscribe({
-        //   next: (response: any) => {
-        //       this.sharedservice.triggerCartRefresh();
-        //     this.wishlistArray = this.wishlistArray.filter(book => book.id !== bookId);    
-        //     console.log("Updated wishlist:", this.wishlistArray);
-        //     //window.location.reload();
-        //   this.getWishlistItems();
-        //   },
-        //   error: (error: any) => 
-        //   {
-        //     console.error("Error removing book from wishlist:", error);
-        //   }
-        // });
-      }
+  });
+}
+
+removeFromWishlist(bookId: number) 
+{
+  // Optimistically remove from UI first
+  this.wishlistBooks = this.wishlistBooks.filter(book => book.bookId !== bookId);
+
+  this.bookService.removeFromWishlist(bookId).subscribe({
+    next: (res: any) => {
+      console.log('Removed from wishlist.', res);
+
+      this.snackBar.open('Book removed from wishlist!', 'Close', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: ['snackbar-success']
+      });
+    },
+    error: (err: any) => {
+      console.error('Error in removing from wishlist !!', err);
+
+      this.snackBar.open('Failed to remove book from wishlist.', 'Close', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: ['snackbar-error']
+      });
+
       
+      this.getWishlist();
+    }
+  });
+}
+
+
 }

@@ -1,37 +1,41 @@
-<!-- Wishlist content -->
-<div class="order-page" *ngIf="!isLoading">
-  <div class="breadcrumb">
-    <a routerLink="/dashboard/home">Home</a> /
-    <span class="active">My wishlist</span>
-  </div>
+<div class="wishlist-container">
+  <nav class="breadcrumb">
+  <span class="breadcrumb-item" (click)="navigateHome()" style="cursor: pointer;">Home</span> /
+  <span class="breadcrumb-current">My Wishlist</span>
+</nav>
 
-  <!-- Always visible title -->
-  <div class="order-header">
-    <h2>My Wishlist</h2>
-  </div>
 
-  <!-- No items message -->
-  <div *ngIf="wishlistArray.length === 0" class="no-items-message">
-    No items in wishlist.
-  </div>
+  <mat-card class="wishlist-card">
+    <mat-card-header>
+      <mat-card-title class="wishlist-title">
+        My Wishlist ({{ wishlistBooks.length }})
+      </mat-card-title>
+    </mat-card-header>
 
-  <!-- Item list -->
-  <div class="order-list" *ngIf="wishlistArray.length > 0">
-    <div class="order-card" *ngFor="let item of wishlistArray; trackBy: trackByBookId">
-      <div class="book-image">
-        <img [src]="item.bookImage" alt="Book cover" />
+    <mat-divider></mat-divider>
+
+    <ng-container *ngIf="wishlistBooks.length === 0">
+      <div class="empty-wishlist">
+        <img src="assets\wishlist.png" alt="Empty Wishlist" class="empty-wishlist-image" />
+        <p class="empty-msg">No books in your wishlist.</p>
       </div>
-      <div class="book-details">
-        <h3>{{ item.bookName }}</h3>
-        <p class="author">by {{ item.author }}</p>
-        <p class="quantity">{{ item.quantity }}</p>
-        <p class="price">Rs. {{ item.price }}</p>
+    </ng-container>
+
+    <div *ngFor="let book of wishlistBooks" class="book-item">
+      <img [src]="book.bookImage" alt="{{ book.bookName }}" class="book-image" />
+
+      <div class="book-info">
+        <h3 class="book-title">{{ book.bookName }}</h3>
+        <p class="author">by {{ book.author }}</p>
+        <div class="price-row">
+          <span class="price">Rs. {{ book.discountPrice }}</span>
+          <span class="original-price">Rs. {{ book.price }}</span>
+        </div>
       </div>
 
-      <div class="tooltip-wrapper" (click)="removeFromWishlist(item.bookId)">
-        <mat-icon class="delete-icon" aria-hidden="true">delete</mat-icon>
-        <span class="tooltip-text">Delete</span>
-      </div>
+      <button mat-icon-button color="warn" class="remove-button" (click)="removeFromWishlist(book.bookId)">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
     </div>
-  </div>
+  </mat-card>
 </div>
