@@ -3,12 +3,6 @@
   <!-- Breadcrumb -->
   <p class="breadcrumb" (click)="goBack()">Home<span> / Book({{ book.bookId }})</span></p>
 
-  <!-- <div class="book-details-container">
-  <button mat-button color="primary" >
-    <mat-icon>arrow_back</mat-icon> Back
-  </button>
-  </div> -->
-
   <div class="book-detail-grid">
     <!-- Side Thumbnails -->
     <div class="thumbnail-list">
@@ -19,11 +13,41 @@
     <!-- Main Book Image -->
     <div class="main-book-image">
       <img [src]="book.bookImage" alt="{{ book.bookName }}" />
+      <div *ngIf="book.quantity === 0" class="stock-overlay">OUT OF STOCK</div>
+        <div>
+      
+            <!-- In-place replacement -->
+            <div class="cart-action">
+              <ng-container *ngIf="!isInCart; else quantityTemplate">
+                <button 
+                  mat-stroked-button 
+                  class="add-to-bag" 
+                  [disabled]="book.quantity === 0"
+                  (click)="addToCart(book)">
+                  ADD TO BAG
+                </button>
+              </ng-container>
 
-            <button mat-stroked-button class="add-to-bag">ADD TO BAG</button>
-            <button mat-stroked-button color="warn" class="wishlist" (click)="addToWishlist(book.bookId)">
+              <ng-template #quantityTemplate>
+                <div class="quantity-control">
+                  <button mat-icon-button (click)="decreaseQty(book)">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  <span class="qty">{{ quantity }}</span>
+                  <button mat-icon-button (click)="increaseQty(book)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+              </ng-template>
+
+              <button mat-stroked-button color="warn" class="wishlist" (click)="addToWishlist(book.bookId)" [disabled]="book.quantity === 0">
             <mat-icon>favorite_border</mat-icon>WISHLIST</button>
+
+            </div>
+
+      </div>   
     </div>
+    
 
     <!-- Book Info Section -->
     <div class="book-info">

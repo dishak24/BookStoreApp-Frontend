@@ -27,6 +27,9 @@ export class BookDetailsComponent implements OnInit
 {
   bookId: number = 0;
   //book: any;
+  isInCart = false;
+  quantity = 1;
+
 
   constructor(
     private route: ActivatedRoute, 
@@ -94,6 +97,105 @@ export class BookDetailsComponent implements OnInit
 }
 
 
+//cart
+//isInCart: boolean = false;
+//quantity: number = 1; // default to 1 after adding
+
+addToCart(book: any) {
+  this.bookService.addToCart(book.bookId).subscribe({
+    next: (res) => {
+      console.log('Added to cart:', res);
+      this.snackbar.open('Book added to cart!', 'Close', { duration: 3000 });
+
+      // Replace button with quantity counter
+      this.isInCart = true;
+
+      // OPTIONAL: update cart icon badge
+      // this.cartService.incrementCartCount(); // only if you have shared service
+    },
+    error: (err) => {
+      console.error('Failed to add to cart:', err);
+      this.snackbar.open('Failed to add book to cart.', 'Close', { duration: 3000 });
+    }
+  });
+}
+
+
+
+//to increase the quantity
+
+// increaseQty(book: any) 
+// {
+
+//   this.bookService.addToCart(book.bookId).subscribe({
+//     next: (res) => {
+//       console.log('Quantity Increased!:', res);
+//       this.snackbar.open('Quantity Increased!', 'Close', { duration: 3000 });
+
+//       // OPTIONAL: update cart icon badge
+//       // this.cartService.incrementCartCount(); // only if you have shared service
+//     },
+//     error: (err) => {
+//       console.error('Failed to add to cart:', err);
+//       this.snackbar.open('Failed to Quantity Increase.', 'Close', { duration: 3000 });
+//     }
+//   });
+// }
+
+increaseQty(book: any) 
+{
+  book.quantity++; // actually update the book object’s quantity
+  this.bookService.updateCartQuantity(book.bookId, book.quantity).subscribe({
+    next: (res) => {
+      this.snackbar.open('Quantity Increased!', 'Close', { duration: 3000 });
+    },
+    error: (err) => {
+      console.error("Error increasing quantity:", err);
+    }
+  });
+}
+
+
+//to decrease the quantity
+decreaseQty(book: any) 
+{
+  this.quantity--;
+  //update quantity to backend
+  const newQty = book.quantity-1;
+  this.bookService.updateCartQuantity(book.bookId, newQty).subscribe({
+    next: (res) => 
+    {
+      book.quantity = newQty;
+      this.snackbar.open('Quantity Decreased!', 'Close', { duration: 3000 });
+    },
+    error: (err) => {
+      console.error("Error in decreasing quantity:", err);
+    }
+  });
+}
+
+
+updateCart() {
+  // const payload = {
+  //   bookId: this.book.bookId,
+  //   quantity: this.quantity
+  // };
+
+  // this.bookService.updateCart(payload).subscribe({
+  //   next: () => {
+  //     this.snackbar.open('Cart updated!', 'Close', {
+  //       duration: 2000
+  //     });
+  //   },
+  //   error: (err) => {
+  //     console.error('Update cart failed', err);
+  //     this.snackbar.open('Error updating cart.', 'Close', {
+  //       duration: 3000,
+  //       panelClass: ['error-snackbar']
+  //     });
+  //   }
+  // });
+}
 
 
 }
