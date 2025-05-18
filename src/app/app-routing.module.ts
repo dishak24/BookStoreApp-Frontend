@@ -5,6 +5,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 import { BooksComponent } from './components/books/books.component';
 import { BookDetailsComponent } from './components/book-details/book-details.component';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
 
 const routes: Routes = 
 [
@@ -26,6 +27,10 @@ const routes: Routes =
   {
     path: 'books/:bookId',
     component: BookDetailsComponent
+  },
+  {
+    path: 'wishlist',
+    component: WishlistComponent
   },
   {
     path: '',
