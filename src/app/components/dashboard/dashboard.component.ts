@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit
 
   selectedBook: any = null;
 
+  selectedSection: string = 'books'; // or 'wishlist'
+
   onBookSelected(book: any) 
   {
   this.selectedBook = book;

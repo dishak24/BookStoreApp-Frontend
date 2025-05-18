@@ -40,8 +40,8 @@
                   <mat-icon>assignment</mat-icon>
                   <span>My Orders</span>
                 </button>
-                <button mat-menu-item>
-                  <mat-icon>favorite_border</mat-icon>
+                <button mat-menu-item (click)="selectedSection = 'wishlist'; selectedBook = null">
+                <mat-icon>favorite_border</mat-icon>
                   <span>My Wishlist</span>
                 </button>
                 <div class="logout-container">
@@ -61,7 +61,9 @@
 
 <!-- Main Content -->
 <div class="main-content">
-
+  <!-- Books View -->
+  <ng-container *ngIf="selectedSection === 'books'">
+    
     <ng-container *ngIf="!selectedBook; else showDetails">
       <app-books [searchTerm]="searchTerm" (bookClicked)="onBookSelected($event)"></app-books>
     </ng-container>
@@ -69,11 +71,17 @@
     <ng-template #showDetails>
       <app-book-details [book]="selectedBook" (back)="selectedBook = null"></app-book-details>
     </ng-template>
-    
+  </ng-container>
+
+  <!-- Wishlist View -->
+  <ng-container *ngIf="selectedSection === 'wishlist'">
+    <app-wishlist (goHome)="selectedSection = 'books'"></app-wishlist>
+  </ng-container>
 </div>
 
-<!-- Footer -->
-<mat-toolbar color="primary" class="footer">
-  <span class="footer-text">Copyright © 2025, Bookstore Private Limited. All Rights Reserved</span>
-</mat-toolbar>
+
+  <!-- Footer -->
+  <mat-toolbar color="primary" class="footer">
+    <span class="footer-text"> Copyright © 2025, Bookstore Private Limited. All Rights Reserved</span>
+  </mat-toolbar>
  </body>
