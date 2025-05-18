@@ -26,6 +26,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { BookDetailsComponent } from './components/book-details/book-details.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { CartComponent } from './components/cart/cart.component';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +41,7 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
     LogoutDilogComponent,
     BookDetailsComponent,
     WishlistComponent,
+    CartComponent,
     
   ],
   imports: [
@@ -55,8 +60,8 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
     MatMenuModule,
     FormsModule,
     MatDialogModule,
-    
-
+    MatCardModule, 
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
