@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { BookService } from 'src/app/services/book/book.service';
 
 @Component({
@@ -11,14 +12,15 @@ export class WishlistComponent
 {
     wishlistBooks: any[] = [];
 
-     @Output() goHome = new EventEmitter<void>();
+     //@Output() goHome = new EventEmitter<void>();
 
   // Triggered when user clicks Home
     navigateHome() {
-      this.goHome.emit();
+      //this.goHome.emit();
+      this.router.navigate(['/dashboard/home'])
     }
 
-  constructor(private bookService: BookService, private snackBar: MatSnackBar) {}
+  constructor(private bookService: BookService, private snackBar: MatSnackBar, private router : Router) {}
 
   ngOnInit() {
     this.getWishlist();
