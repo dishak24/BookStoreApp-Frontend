@@ -1,0 +1,319 @@
+.cart-container {
+  padding: 20px 40px;
+  font-family: 'Roboto', sans-serif;
+  max-width: 77%;
+  margin-left: 8%;
+}
+
+.breadcrumbs {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #888;
+  .active {
+    color: black;
+    font-weight: 500;
+  }
+}
+
+.cart-box {
+  border: 1px solid #ddd;
+  padding: 20px;
+  background: #fff;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.address-select {
+  width: 300px;
+  height: 20px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 20px;
+  position: relative;
+}
+
+.book-image {
+  width: 100px;
+  height: 140px;
+  object-fit: cover;
+  margin-right: 20px;
+  border: 1px solid #eee;
+}
+
+.book-details {
+  flex: 1;
+}
+
+.book-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.book-author {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.book-price {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+
+  .strikethrough {
+    text-decoration: line-through;
+    color: #aaa;
+    margin-left: 10px;
+    font-size: 14px;
+  }
+}
+
+.qty-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+
+  .qty {
+    font-size: 16px;
+    width: 24px;
+    text-align: center;
+  }
+
+  .remove-link {
+    color: #d32f2f;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 20px;
+  }
+}
+
+.place-order-btn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.accordion-section {
+  margin-top: 30px;
+}
+
+.empty-wishlist {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.empty-wishlist-image {
+  width: 150px;
+  height: auto;
+  margin-bottom: 16px;
+}
+
+.empty-msg {
+  font-size: 16px;
+  color: #555;
+}
+
+.place-order-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.place-order-main {
+  padding: 10px 30px;
+  font-weight: bold;
+}
+
+//responsive styles
+
+@media (max-width: 768px) {
+  .cart-container {
+    padding: 20px;
+    margin-left: 0;
+    max-width: 100%;
+  }
+
+  .cart-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .address-select {
+    width: 100%;
+  }
+
+  .cart-box {
+    padding: 16px;
+  }
+
+  .cart-item {
+     margin-top: 20%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .book-image {
+    width: 70px;
+    height: 100px;
+    margin: 0;
+   
+    object-fit: cover;
+  }
+
+  .book-details {
+    flex: 1;
+    text-align: left;
+  }
+
+  .book-title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .book-author {
+    font-size: 13px;
+    color: #666;
+    margin-top: 2cqmax;
+  }
+
+  .book-price {
+    font-size: 16px;
+    font-weight: 500;
+
+    .strikethrough {
+      font-size: 12px;
+    }
+  }
+
+  .qty-row {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 6px;
+    margin-top: 5%;
+
+    .qty {
+      font-size: 14px;
+    }
+
+    .remove-link {
+      margin-right: 20%;
+      font-size: 13px;
+    }
+  }
+
+  .place-order-wrapper {
+    justify-content: center;
+  }
+
+  .place-order-main {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+.cart-container {
+  padding: 20px;
+}
+
+.cart-box {
+  margin-bottom: 30px;
+}
+
+.expansion-panel {
+  margin-top: 20px;
+}
+
+.address-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.half-width {
+  flex: 1 1 48%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.type-radio {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.summary-item {
+  display: flex;
+  gap: 16px;
+  margin: 16px 0;
+  img {
+    width: 60px;
+    height: 80px;
+  }
+  .title {
+    font-weight: 600;
+  }
+  .author {
+    font-size: 14px;
+    margin-top: 5%;
+    color: gray;
+  }
+  .price {
+    margin-top: 5%;
+    font-size: 16px;
+    font-weight: 500;
+    .strikethrough {
+      text-decoration: line-through;
+      color: #aaa;
+      margin-left: 10px;
+      font-size: 12px;
+    }
+  }
+}
+
+.checkout-btn {
+  padding: 10px 30px;
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  
+}
+
+.total-price {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 500;
+  //margin: 16px 0;
+  margin-left: 75%;
+  margin-right: 0%;
+  padding: 0 16px;
+}
+
+
+
+

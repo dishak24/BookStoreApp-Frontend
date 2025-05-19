@@ -237,7 +237,7 @@ export class AuthenticationComponent
           panelClass: ['success-snackbar']
         });
 
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard/home']);
       },
       error: (error) => 
       {

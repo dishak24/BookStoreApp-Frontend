@@ -1,50 +1,82 @@
 <body> 
-<!-- Header -->
-<mat-toolbar class="header">
-  <!-- Left section -->
-  <div class="left-section">
-    <div class="logo">
-      <mat-icon>menu_book</mat-icon>
-      <span class="brand-name">Bookstore</span>
-    </div>
-    <div class="search-container">
-      <div class="custom-search">
-        <button>
-    <mat-icon class="search-icon">search</mat-icon>
-  </button>
-  <input type="text" placeholder="Search ..." />
+  <!-- Header -->
+  <mat-toolbar class="header">
+      <!-- Left section -->
+    <div class="left-section">
+
+        <div class="logo" style="cursor: pointer;" [routerLink]="['/dashboard/home']">
+          <mat-icon  >menu_book</mat-icon>
+          <span class="brand-name">Bookstore</span>
+        </div>
+
+        <div class="search-container">
+
+          <div class="custom-search">
+            <button><mat-icon class="search-icon">search</mat-icon></button>
+            <input type="text" placeholder="Search ..." [(ngModel)]="searchTerm" (ngModelChange)="onSearchTermChange($event)"  />
   
-</div>
+          </div>
 
-    </div>
-  </div>
-
-  <!-- Right section -->
-    <div class="right-section">
-        <div class="icon-with-label">
-          <button mat-icon-button>
-            <mat-icon>person</mat-icon>
-          </button>
-          <span class="label">{{ username }}</span>
         </div>
+    </div>
+
+        <!-- Right section -->
+        <!-- profile icon -->
+        <div class="right-section">
+            <div class="icon-with-label">
+              <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+                <mat-icon >person</mat-icon>
+              </button>
+              <span class="label">{{ username }}</span>
+            </div>
+
+            <!-- Dropdown Menu -->
+                  <mat-menu #profileMenu="matMenu" class="custom-profile-menu">
+                    <div class="menu-header">
+                      <p class="greeting">Hello {{username}},</p>
+                    </div>
+                    <button mat-menu-item [routerLink]="['/dashboard/orders']">
+                      <mat-icon>shopping_cart</mat-icon>
+                      <span>My Orders</span>
+                    </button>
+                    
+                    <button mat-menu-item (click)="navigateToWishlist()">
+                    
+                      <mat-icon>favorite_border</mat-icon>
+                      <span>My Wishlist</span>
+                    </button>
+                    <div class="logout-container">
+                      <button mat-button class="logout-btn" (click)="openLogoutDialog()">Logout</button>
+                    </div>
+                  </mat-menu>
         
-        <div class="icon-with-label">
-          <button mat-icon-button>
-            <mat-icon>shopping_cart</mat-icon>
-          </button>
-          <span class="label">Cart</span>
+              <!-- cart icon -->
+              <div class="icon-with-label">
+                <button mat-icon-button
+                      [matBadge]="cartItemCount"
+                      matBadgeColor="accent"
+                      matBadgeOverlap="false"
+                      [matBadgeHidden]="cartItemCount === 0"
+                      (click)="navigateToCart()">
+                <mat-icon>shopping_cart</mat-icon>
+                </button>
+                <span class="label">Cart</span>
+              </div>
         </div>
-    </div>
-</mat-toolbar>
+  </mat-toolbar>
 
 
 <!-- Main Content -->
 <div class="main-content">
-  
+      
+  <router-outlet></router-outlet>
+
 </div>
 
-<!-- Footer -->
-<mat-toolbar color="primary" class="footer">
-  <span class="footer-text">Copyright © 2025, Bookstore Private Limited. All Rights Reserved</span>
-</mat-toolbar>
+ 
+
+  <!-- Footer -->
+  <mat-toolbar color="primary" class="footer">
+    <span class="footer-text"> Copyright © 2025, Bookstore Private Limited. All Rights Reserved</span>
+  </mat-toolbar>
  </body>

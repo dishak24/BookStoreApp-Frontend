@@ -1,0 +1,85 @@
+
+<div *ngIf="book" class="book-detail-container">
+  <!-- Breadcrumb -->
+  <p class="breadcrumb" (click)="goBack()">Home<span> / Book({{ book.bookId }})</span></p>
+
+  <div class="book-detail-grid">
+    <!-- Side Thumbnails -->
+    <div class="thumbnail-list">
+      <img [src]="book.bookImage" class="thumbnail" />
+      
+    </div>
+
+    <!-- Main Book Image -->
+    <div class="main-book-image">
+      <img [src]="book.bookImage" alt="{{ book.bookName }}" />
+      <div *ngIf="book.quantity === 0" class="stock-overlay">OUT OF STOCK</div>
+        <div>
+      
+            <!-- In-place replacement -->
+            <div class="cart-action">
+              <ng-container *ngIf="!isInCart; else quantityTemplate">
+                <button 
+                  mat-stroked-button 
+                  class="add-to-bag" 
+                  [disabled]="book.quantity === 0"
+                  (click)="addToCart(book)">
+                  ADD TO BAG
+                </button>
+              </ng-container>
+
+              <ng-template #quantityTemplate>
+                <div class="quantity-control">
+                  <button mat-icon-button (click)="decreaseQty(book)">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  <span class="qty">{{ quantity }}</span>
+                  <button mat-icon-button (click)="increaseQty(book)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+              </ng-template>
+
+              <button mat-stroked-button color="warn" class="wishlist" (click)="addToWishlist(book.bookId)" [disabled]="book.quantity === 0">
+            <mat-icon>favorite_border</mat-icon>WISHLIST</button>
+
+            </div>
+
+      </div>   
+    </div>
+    
+
+    <!-- Book Info Section -->
+    <div class="book-info">
+      <h2>{{ book.bookName }}</h2>
+      <p class="author">by {{ book.author }}</p>
+      <div class="rating">
+        <span class="badge">4.5 ★</span>
+        <span class="reviews">(20)</span>
+      </div>
+      <div class="price">
+        <span class="discounted">Rs.{{ book.discountPrice }}</span>
+        <span class="original">Rs.{{ book.price }}</span>
+      </div>
+      <hr />
+      <div class="description">
+        <p><strong>• Book Detail</strong></p>
+        <p>{{ book.description }}</p>
+      </div>
+      <div class="actions">
+            
+            <hr />
+            <div class="feedback-section">
+                    <h3>Customer Feedback</h3>
+                    <label>Overall rating</label>
+                        <div class="stars">
+                        <ng-container *ngFor="let star of [1,2,3,4,5]">
+                            <span class="star">☆</span>
+                        </ng-container>
+                        </div>
+                    <textarea placeholder="Write your review"></textarea>
+                    <button class="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

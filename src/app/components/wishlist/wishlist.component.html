@@ -1,0 +1,41 @@
+<div class="wishlist-container">
+  <nav class="breadcrumb">
+  <span class="breadcrumb-item" (click)="navigateHome()" style="cursor: pointer;">Home</span> /
+  <span class="breadcrumb-current">My Wishlist</span>
+</nav>
+
+
+  <mat-card class="wishlist-card">
+    <mat-card-header>
+      <mat-card-title class="wishlist-title">
+        My Wishlist ({{ wishlistBooks.length }})
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <ng-container *ngIf="wishlistBooks.length === 0">
+      <div class="empty-wishlist">
+        <img src="assets\wishlist.png" alt="Empty Wishlist" class="empty-wishlist-image" />
+        <p class="empty-msg">No books in your wishlist !!!</p>
+      </div>
+    </ng-container>
+
+    <div *ngFor="let book of wishlistBooks" class="book-item">
+      <img [src]="book.bookImage" alt="{{ book.bookName }}" class="book-image" />
+
+      <div class="book-info">
+        <h3 class="book-title">{{ book.bookName }}</h3>
+        <p class="author">by {{ book.author }}</p>
+        <div class="price-row">
+          <span class="price">Rs. {{ book.discountPrice }}</span>
+          <span class="original-price">Rs. {{ book.price }}</span>
+        </div>
+      </div>
+
+      <button mat-icon-button color="warn" class="remove-button" (click)="removeFromWishlist(book.bookId)">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+</div>

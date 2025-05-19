@@ -1,0 +1,161 @@
+<div class="cart-container">
+  <div class="breadcrumbs">
+    <span (click)="goHome()" style="cursor: pointer;">Home /</span>
+    <span class="active">My cart</span>
+  </div>
+
+  <div class="cart-box">
+    <div class="cart-header">
+      <h2>My cart ({{ cartItems.length }})</h2>
+      <mat-form-field appearance="outline" class="address-select">
+        <mat-select placeholder="Select Address">
+          <mat-option *ngFor="let address of addresses" [value]="address">
+            <mat-icon>location_on</mat-icon> {{ address }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Empty cart -->
+    <ng-container *ngIf="cartItems.length === 0">
+      <div class="empty-wishlist">
+        <img src="assets/c.png" alt="Empty Wishlist" class="empty-wishlist-image" />
+        <p class="empty-msg">No books in your Cart !!!</p>
+      </div>
+    </ng-container>
+
+    <!-- Cart Items -->
+    <div class="cart-item" *ngFor="let book of cartItems">
+      <img [src]="book.bookImage" alt="Book Cover" class="book-image" />
+
+      <div class="book-details">
+        <div class="book-title">{{ book.bookName }}</div>
+        <div class="book-author">by {{ book.author }}</div>
+        <div class="book-price">
+          Rs. {{ book.unitPrice }}
+          <span class="strikethrough">Rs. {{ book.originalPrice || (book.unitPrice + 500) }}</span>
+        </div>
+
+        <div class="qty-row">
+          <button mat-mini-button (click)="decreaseQty(book)" [disabled]="book.quantity <= 1">−</button>
+          <span class="qty">{{ book.quantity }}</span>
+          <button mat-mini-button (click)="increaseQty(book)">+</button>
+          <span class="remove-link" (click)="removeFromCart(book)">Remove</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLACE ORDER -->
+    <!-- PLACE ORDER -->
+<div class="place-order-wrapper" *ngIf="cartItems.length > 0 && showPlaceOrderButton">
+  <button mat-raised-button color="primary" class="place-order-main" (click)="placeOrder()">
+    PLACE ORDER
+  </button>
+</div>
+
+  </div>
+
+  <!-- Address Details -->
+  <mat-accordion class="expansion-panel">
+    <mat-expansion-panel #addressPanel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Address Details</mat-panel-title>
+      </mat-expansion-panel-header>
+
+  <form [formGroup]="addressForm" (ngSubmit)="continueToSummary()" novalidate>
+  <div class="address-form">
+    <div class="row">
+      <mat-form-field appearance="outline" class="half-width">
+        <input matInput placeholder="Full Name" formControlName="fullName" />
+        <mat-error *ngIf="addressForm.get('fullName')?.touched && addressForm.get('fullName')?.invalid">
+          Full Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <input matInput placeholder="Mobile Number" formControlName="mobileNumber" />
+        <mat-error *ngIf="addressForm.get('mobileNumber')?.touched && addressForm.get('mobileNumber')?.invalid">
+          Enter a valid 10-digit mobile number
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <textarea matInput placeholder="Address" formControlName="address"></textarea>
+      <mat-error *ngIf="addressForm.get('address')?.touched && addressForm.get('address')?.invalid">
+        Address is required
+      </mat-error>
+    </mat-form-field>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="half-width">
+        <input matInput placeholder="City/Town" formControlName="city" />
+        <mat-error *ngIf="addressForm.get('city')?.touched && addressForm.get('city')?.invalid">
+          City is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <input matInput placeholder="State" formControlName="state" />
+        <mat-error *ngIf="addressForm.get('state')?.touched && addressForm.get('state')?.invalid">
+          State is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="type-radio">
+      <mat-radio-group formControlName="type">
+        <mat-radio-button value="Home">Home</mat-radio-button>
+        <mat-radio-button value="Work">Work</mat-radio-button>
+        <mat-radio-button value="Other">Other</mat-radio-button>
+      </mat-radio-group>
+      <mat-error *ngIf="addressForm.get('type')?.touched && addressForm.get('type')?.invalid">
+        Please select address type
+      </mat-error>
+    </div>
+
+    <div class="checkout-btn">
+      <button mat-raised-button color="primary" type="submit">
+        <b>CONTINUE</b>
+      </button>
+    </div>
+  </div>
+</form>
+
+
+    </mat-expansion-panel>
+
+    <!-- space between 2 -->
+    <div style="margin-top: 16px;"></div>
+
+    <!-- Order Summary -->
+    <mat-expansion-panel #summaryPanel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Order Summary</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div *ngFor="let item of cartItems" class="summary-item">
+        <img [src]="item.bookImage" alt="Book Cover" />
+        <div>
+          <div class="title"><span>{{ item.bookName }}</span></div>
+          <div class="author">by {{ item.author }}</div>
+          <div class="qty-row">Qty: {{ item.quantity }}</div>
+          <div class="price">
+            Rs. {{ item.unitPrice }}
+            <span class="strikethrough">Rs. {{ item.originalPrice || (item.unitPrice + 500) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Just show the total amount -->
+      <div class="total-price">
+        <div class="label">Total Amount:</div>
+        <div class="amount">Rs. {{     totalAmount }}</div>
+      </div>
+
+      <div class="checkout-btn">
+        <button mat-raised-button color="primary" (click)="purchaseBooks()"><b>CHECKOUT</b></button>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

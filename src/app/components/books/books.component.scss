@@ -1,0 +1,386 @@
+.books-container {
+  max-width: 1000px;  /* constrain container width */
+  margin: 0 auto;     /* center container */
+  padding: 24px 16px;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+}
+
+.book-length
+{
+  font-size: 13px;
+  color: #9D9D9D;
+  margin-bottom: 16px;
+  font-weight: 450;
+}
+
+.books-container h2 {
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px;
+  padding: 20px;
+  justify-content: center;
+  column-gap: 7% !important; /* Force horizontal spacing */
+  row-gap: 20px !important; 
+}
+
+.book-card {
+ // background: #fff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+  transition: box-shadow 0.3s ease;
+  width: 220px;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 350px;
+  border-bottom: 1px solid #ddd;
+  
+  
+}
+
+.book-card:hover {
+  box-shadow: 0 10px 12px rgb(0 0 0 / 0.15);
+}
+
+.book-image {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  background: #F5F5F5; /* light gray background */
+  padding: 12px;
+  border-bottom: 1.5px solid #ddd;
+  border-radius: 4px 4px 0 0; /* optional: smooth top corners */
+}
+
+// .image-wrapper {
+//   background-color: #f5f5f5;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 200px;
+//   border-bottom: 1px solid #ddd;
+//   gap: 80px;
+// }
+
+
+.book-info {
+  padding: 12px 16px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-info h3 {
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+  margin-right: auto;
+}
+
+.book-info .author {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+  margin-right: auto;
+}
+
+.rating-box {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.rating-value {
+  background-color: #388e3c;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+}
+
+.star-icon {
+  font-size: 14px;
+  margin-left: 2px;
+  margin-top: 7px;
+}
+
+.rating-count {
+  color: #757575;
+  margin-left: 6px;
+  font-weight: 400;
+}
+
+.price {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-weight: 700;
+}
+
+.price .new {
+  color: #212121;
+}
+
+.price .old {
+  color: #999;
+  text-decoration: line-through;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.stock-overlay 
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #F5F5F5;
+  color: #000;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 3px;
+  box-shadow: 0 2px 1px rgba(0,0,0,0.2);
+  pointer-events: none;
+  font-size: 14px;
+  user-select: none;
+  width: 160px;
+  text-align: center;
+}
+
+.books-grid 
+{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  column-gap: 7% !important; /* Force horizontal spacing */
+  row-gap: 20px !important; 
+}
+
+.book-card {
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+//pagination
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: none;
+  background: #eee;
+  color: #333;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  min-width: 32px;
+}
+
+.pagination button.active {
+  background-color: #b71c1c;
+  color: #fff;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+//sort dropdown
+.books-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap; /* helps on small screens */
+}
+
+.books-header h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.sort-dropdown {
+  position: relative;
+}
+
+.sort-toggle {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sort-options {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  list-style: none;
+  padding: 8px 0;
+  margin: 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 180px;
+  z-index: 1000;
+}
+
+.sort-options li {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.sort-options li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .books-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+
+  .book-card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .books-container h2 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .books-grid {
+    padding: 10px;
+    gap: 12px;
+  }
+
+  .book-info h3 {
+    font-size: 14px;
+  }
+
+  .price .new {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .books-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .book-image {
+    height: 160px;
+    padding: 8px;
+  }
+
+  .book-info {
+    padding: 8px;
+  }
+
+  .stock-overlay {
+    font-size: 12px;
+    width: 120px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  // .sort-toggle {
+  //   width: 100%;
+  //   text-align: center;
+  // }
+
+  // .sort-options {
+  //   width: 100%;
+  // }
+}
+/* Center content on smaller screens */
+@media (max-width: 600px) {
+  .books-grid {
+    grid-template-columns: 1fr; /* 1 column layout */
+    justify-items: center;      /* Center each card in the grid */
+  }
+
+  .book-card {
+    width: 90%;                 /* Take 90% of screen width */
+    max-width: 320px;           /* Optional max width */
+  }
+
+  .book-info {
+    text-align: left;           /* Keeps text aligned nicely */
+  }
+
+  .rating-box {
+    justify-content: flex-start;
+  }
+
+  .price {
+    flex-direction: row;
+    justify-content: flex-start;
+    //align-items: center;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .books-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .sort-dropdown {
+    width: 100%;
+  }
+
+  .sort-toggle {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+
+
+
