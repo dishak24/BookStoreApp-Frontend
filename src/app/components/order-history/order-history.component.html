@@ -1,0 +1,27 @@
+<div class="order-history">
+  <div class="breadcrumb">
+    <span [routerLink]="['/dashboard/home']" style="cursor: pointer;">Home /</span>
+    <span class="active">My Orders</span>
+  </div>
+
+  <div class="order-card" *ngFor="let order of orders">
+    <div class="order-image">
+      <img [src]="order.bookImage" alt="{{ order.bookName }}" />
+    </div>
+
+    <div class="order-details">
+      <h2>{{ order.bookName }}</h2>
+      <p class="author">by {{ order.author }}</p>
+
+      <div class="price">
+        <span class="new-price">Rs. {{ order.totalAmount }}</span>
+        <span class="old-price">Rs. {{ order.totalAmount + 200 }}</span>
+      </div>
+    </div>
+
+    <div class="order-status">
+      <span class="dot"></span>
+      <span>Order Placed on {{ order.orderedAt | date: 'MMMM dd, yyyy' }}</span>
+    </div>
+  </div>
+</div>
