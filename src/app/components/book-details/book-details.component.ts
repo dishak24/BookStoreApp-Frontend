@@ -1,22 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BookService } from 'src/app/services/book/book.service';
-
-// interface BookResponse {
-//   success: boolean;
-//   message: string;
-//   data: {
-//     bookId: number;
-//     bookName: string;
-//     author: string;
-//     description: string;
-//     price: number;
-//     discountPrice: number;
-//     quantity: number;
-//     bookImage: string;
-//   }
-// }
 
 @Component({
   selector: 'app-book-details',
@@ -26,7 +11,7 @@ import { BookService } from 'src/app/services/book/book.service';
 export class BookDetailsComponent implements OnInit 
 {
   bookId: number = 0;
-  //book: any;
+  book: any;
   isInCart = false;
   quantity = 1;
 
@@ -34,15 +19,17 @@ export class BookDetailsComponent implements OnInit
   constructor(
     private route: ActivatedRoute, 
     private bookService: BookService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private router: Router
   ) {}
 
-  @Input() book: any;
-  @Output() back = new EventEmitter<void>();
+  // @Input() book: any;
+  // @Output() back = new EventEmitter<void>();
 
   goBack() 
   {
-    this.back.emit();
+    //this.back.emit();
+    this.router.navigate(['/dashboard/home']);
   }
 
   ngOnInit(): void 
@@ -98,10 +85,8 @@ export class BookDetailsComponent implements OnInit
 
 
 //cart
-//isInCart: boolean = false;
-//quantity: number = 1; // default to 1 after adding
-
-addToCart(book: any) {
+addToCart(book: any) 
+{
   this.bookService.addToCart(book.bookId).subscribe({
     next: (res) => {
       console.log('Added to cart:', res);
@@ -120,27 +105,6 @@ addToCart(book: any) {
   });
 }
 
-
-
-//to increase the quantity
-
-// increaseQty(book: any) 
-// {
-
-//   this.bookService.addToCart(book.bookId).subscribe({
-//     next: (res) => {
-//       console.log('Quantity Increased!:', res);
-//       this.snackbar.open('Quantity Increased!', 'Close', { duration: 3000 });
-
-//       // OPTIONAL: update cart icon badge
-//       // this.cartService.incrementCartCount(); // only if you have shared service
-//     },
-//     error: (err) => {
-//       console.error('Failed to add to cart:', err);
-//       this.snackbar.open('Failed to Quantity Increase.', 'Close', { duration: 3000 });
-//     }
-//   });
-// }
 
 increaseQty(book: any) 
 {
@@ -174,28 +138,6 @@ decreaseQty(book: any)
   });
 }
 
-
-updateCart() {
-  // const payload = {
-  //   bookId: this.book.bookId,
-  //   quantity: this.quantity
-  // };
-
-  // this.bookService.updateCart(payload).subscribe({
-  //   next: () => {
-  //     this.snackbar.open('Cart updated!', 'Close', {
-  //       duration: 2000
-  //     });
-  //   },
-  //   error: (err) => {
-  //     console.error('Update cart failed', err);
-  //     this.snackbar.open('Error updating cart.', 'Close', {
-  //       duration: 3000,
-  //       panelClass: ['error-snackbar']
-  //     });
-  //   }
-  // });
-}
 
 
 }
