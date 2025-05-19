@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LogoutDilogComponent } from '../logout-dilog/logout-dilog.component';
 import { Router } from '@angular/router';
+import { BookService } from 'src/app/services/book/book.service';
+import { Subscription } from 'rxjs';
+
+import { SearchingService } from 'src/app/services/search/searching.service'; // adjust path as needed
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +18,9 @@ export class DashboardComponent implements OnInit
 
   constructor(
     private router: Router, 
-    private dialog: MatDialog,     
+    private dialog: MatDialog,
+    private bookService: BookService,
+    private searchService: SearchingService     
   ) { }
 
   //for searching
@@ -24,9 +30,24 @@ export class DashboardComponent implements OnInit
 
   selectedSection: string = 'books'; // or 'wishlist'
 
-  onBookSelected(book: any) 
+  cartItemCount: number = 0;
+
+  private cartCountSub!: Subscription;
+
+
+  // onBookSelected(book: any) 
+  // {
+  // this.selectedBook = book;
+  // }
+
+  navigateToWishlist()
   {
-  this.selectedBook = book;
+    this.router.navigate(['/dashboard/wishlists']);
+  }
+
+  navigateToCart()
+  {
+    this.router.navigate(['/dashboard/carts']);
   }
 
   ngOnInit(): void 
@@ -43,6 +64,24 @@ export class DashboardComponent implements OnInit
     else 
     {
       this.username = 'Profile';
+    }
+
+    //this.fetchCartCount();
+    // Subscribe to reactive cart count updates
+    this.cartCountSub = this.bookService.cartCount$.subscribe(count => {
+      this.cartItemCount = count;
+    });
+
+  }
+
+  onSearchTermChange(term: string) 
+  {
+      this.searchService.setSearchTerm(term);
+  }
+
+  ngOnDestroy(): void {
+    if (this.cartCountSub) {
+      this.cartCountSub.unsubscribe();
     }
   }
 
@@ -72,5 +111,26 @@ export class DashboardComponent implements OnInit
     // Navigate to the login page
     this.router.navigate(['/auth']); 
   }
+
+  getCartCount() {
+  this.bookService.getCartItems().subscribe((cartItems: any) => {
+    this.cartItemCount = cartItems.length; // or sum of quantities if needed
+  });
+}
+
+fetchCartCount() {
+  this.bookService.getCartItems().subscribe({
+    next: (res: any) => {
+      if (res.success) {
+        this.cartItemCount = res.data.items.reduce(
+          (total: number, item: any) => total + item.quantity,0 );
+      }
+    },
+    error: (err) => {
+      console.error('Error fetching cart count:', err);
+    }
+  });
+}
+
 
 }

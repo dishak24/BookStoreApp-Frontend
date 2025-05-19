@@ -314,3 +314,19 @@
   background-color: rgba(198, 40, 40, 0.08);
 }
 
+::ng-deep .mat-badge-content {
+  background-color: white; // red badge color
+  color: #a52a2a;
+  font-size: 12px;
+  font-weight: bold;
+  min-width: 20px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 50%;
+  //top: 8px;
+  //right: 8px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.3);
+  margin-right: 40%;
+  margin-top: 30%;
+}
+
