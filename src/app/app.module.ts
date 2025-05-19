@@ -29,6 +29,15 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { CartComponent } from './components/cart/cart.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+
+import { MatBadgeModule } from '@angular/material/badge';
+
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatRadioModule } from '@angular/material/radio';
+import { OrderPlaceComponent } from './components/order-place/order-place.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
 
 
 @NgModule({
@@ -42,6 +51,8 @@ import { CartComponent } from './components/cart/cart.component';
     BookDetailsComponent,
     WishlistComponent,
     CartComponent,
+    OrderPlaceComponent,
+    OrderHistoryComponent,
     
   ],
   imports: [
@@ -61,7 +72,13 @@ import { CartComponent } from './components/cart/cart.component';
     FormsModule,
     MatDialogModule,
     MatCardModule, 
-    MatDividerModule
+    MatDividerModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatBadgeModule,
+    MatExpansionModule,
+    MatRadioModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
