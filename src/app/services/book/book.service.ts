@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
 import { HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService 
 {
+  private cartCountSubject = new BehaviorSubject<number>(0);
+  cartCount$ = this.cartCountSubject.asObservable();
 
   token: any;
   constructor( private http: HttpService) 
@@ -16,6 +18,19 @@ export class BookService
     this.token = localStorage.getItem('Token');
     //to check if token is present or not
     console.log('Token:', this.token);
+
+    this.loadCartCount(); // Load initial cart count on service creation
+  
+  }
+
+//common function for http options
+  private getHttpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json'
+      })
+    };
   }
 
   //get all books
@@ -100,7 +115,10 @@ export class BookService
       })
     };
     console.log('Headers:', httpOption);
-    return this.http.postApi(`/api/carts?bookId=${bookId}`, {}, httpOption.headers);
+    return this.http.postApi(`/api/carts?bookId=${bookId}`, {}, httpOption.headers)
+    .pipe(
+        tap(() => this.loadCartCount())
+      );
   }
 
   // update book quantity in cart
@@ -112,8 +130,82 @@ export class BookService
     });
 
     const body = { quantity };
-    
-    return this.http.putApi(`/api/carts/${bookId}`, body, headers);
+
+    return this.http.putApi(`/api/carts/${bookId}`, body, headers)
+    .pipe(
+        tap(() => this.loadCartCount())
+      );
+  }
+
+  //get all books in cart
+  getCartItems()
+  {
+    let httpOption = {
+      headers: new HttpHeaders(
+      {
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json'
+      })
+    };
+    console.log('Headers:', httpOption);
+    return this.http.getApi('/api/carts', httpOption.headers);
+  }
+
+
+  // Load and update the cart count BehaviorSubject
+  loadCartCount() 
+  {
+    this.getCartItems().subscribe({
+      next: (res: any) => 
+      {
+        if (res.success && res.data?.items) 
+        {
+          const count = res.data.items.reduce(
+            (total: number, item: any) => total + item.quantity,
+            0
+          );
+          this.cartCountSubject.next(count);
+        } 
+        else 
+        {
+          this.cartCountSubject.next(0);
+        }
+      },
+      error: err => 
+      {
+        console.error('Error loading cart count:', err);
+        this.cartCountSubject.next(0);
+      }
+    });
+  }
+
+  //get order history
+  getOrderHistory()
+  {
+    let httpOption = {
+      headers: new HttpHeaders(
+      {
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json'
+      })
+    };
+    console.log('Headers:', httpOption);
+    return this.http.getApi('/api/orders', httpOption.headers);
+  }
+
+
+  //to place order
+  placeOrder()
+  {
+    let httpOption = {
+      headers: new HttpHeaders(
+      {
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json'
+      })
+    };
+    console.log('Headers:', httpOption);
+    return this.http.postApi('/api/orders', {}, httpOption.headers);
   }
   
 }
