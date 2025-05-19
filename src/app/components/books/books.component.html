@@ -1,4 +1,4 @@
-<div class="books-container">
+<div class="books-container" >
   <div class="books-header">
       <h2>Books <span class="book-length">({{ books.length }} Items)</span></h2>
   
@@ -21,7 +21,7 @@
   <!-- books display -->
   <div class="books-grid">
     <div class="book-card" 
-    *ngFor="let book of books | pagination: currentPage : pageSize"
+    *ngFor="let book of filteredBooks | pagination: currentPage : pageSize"
     
     (click)="onBookClick(book)">
       <!-- <div div class="image-wrapper"> -->
