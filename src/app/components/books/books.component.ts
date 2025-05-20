@@ -10,9 +10,11 @@ import { SearchingService } from 'src/app/services/search/searching.service';
   templateUrl: './books.component.html',
   styleUrls: ['./books.component.scss']
 })
-export class BooksComponent implements OnInit, OnDestroy {
-  books: any[] = [];            // original unfiltered data
-  filteredBooks: any[] = [];    // data shown in UI (after search/sort)
+export class BooksComponent implements OnInit, OnDestroy 
+{
+  books: any[] = []; // original unfiltered data
+
+  filteredBooks: any[] = []; // data shown in UI (after search/sort)
   currentPage = 1;
   pageSize = 8;
   isSortMenuOpen = false;
@@ -26,19 +28,23 @@ export class BooksComponent implements OnInit, OnDestroy {
     private searchService: SearchingService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
     this.bookService.getAllBooks().subscribe({
-      next: (result: any) => {
+      next: (result: any) => 
+      {
         this.books = Array.isArray(result) ? result : result.data;
         this.filteredBooks = [...this.books]; // default to all books
-        this.snackBar.open('Got all books Successfully.', 'Close', {
+        this.snackBar.open('Got all books Successfully.', 'Close', 
+        {
           duration: 3000,
           panelClass: ['success-snackbar']
         });
 
-        this.listenToSearch(); // 🔍 search stream
+        this.listenToSearch(); // for search 
       },
-      error: () => {
+      error: () => 
+      {
         this.snackBar.open('Getting all books failed !!!!', 'Close', {
           duration: 3000,
           panelClass: ['error-snackbar']
@@ -47,7 +53,9 @@ export class BooksComponent implements OnInit, OnDestroy {
     });
   }
 
-  listenToSearch() {
+  // for searching
+  listenToSearch() 
+  {
     this.searchSub = this.searchService.searchTerm$.subscribe(term => {
       const trimmed = term.trim().toLowerCase();
       if (trimmed) {
@@ -63,45 +71,68 @@ export class BooksComponent implements OnInit, OnDestroy {
     });
   }
 
-  onBookClick(book: any) {
+  //when user clicks on book
+  // go to book details
+  onBookClick(book: any) 
+  {
     this.router.navigate(['/dashboard/books', book.bookId]);
   }
 
-  get totalPages(): number {
+  //for pagination
+  get totalPages(): number 
+  {
     return Math.ceil(this.filteredBooks.length / this.pageSize);
   }
 
-  get pages(): number[] {
+  //get pages
+  get pages(): number[] 
+  {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
-  changePage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
+  //change page
+  changePage(page: number): void 
+  {
+    if (page >= 1 && page <= this.totalPages) 
+    {
       this.currentPage = page;
     }
   }
 
-  prevPage(): void {
-    if (this.currentPage > 1) {
+  
+  //go to previous page
+  prevPage(): void 
+  {
+    if (this.currentPage > 1) 
+    {
       this.currentPage--;
     }
   }
 
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
+  //go to next page
+  nextPage(): void 
+  {
+    if (this.currentPage < this.totalPages) 
+    {
       this.currentPage++;
     }
   }
 
-  toggleSortMenu() {
+  //toggle sort menu
+  toggleSortMenu() 
+  {
     this.isSortMenuOpen = !this.isSortMenuOpen;
   }
 
-  sortBooks(criteria: string) {
+  
+  // sort books based on criteria
+  sortBooks(criteria: string) 
+  {
     this.selectedSortLabel = criteria;
     this.isSortMenuOpen = false;
 
-    switch (criteria) {
+    switch (criteria) 
+    {
       case 'Low To High':
         this.filteredBooks = [...this.filteredBooks].sort((a, b) => a.discountPrice - b.discountPrice);
         break;
@@ -122,7 +153,8 @@ export class BooksComponent implements OnInit, OnDestroy {
     this.currentPage = 1;
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(): void 
+  {
     if (this.searchSub) this.searchSub.unsubscribe();
   }
 }

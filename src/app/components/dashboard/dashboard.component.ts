@@ -34,17 +34,13 @@ export class DashboardComponent implements OnInit
 
   private cartCountSub!: Subscription;
 
-
-  // onBookSelected(book: any) 
-  // {
-  // this.selectedBook = book;
-  // }
-
+  // go to wishlist
   navigateToWishlist()
   {
     this.router.navigate(['/dashboard/wishlists']);
   }
 
+  // go to carts
   navigateToCart()
   {
     this.router.navigate(['/dashboard/carts']);
@@ -66,21 +62,25 @@ export class DashboardComponent implements OnInit
       this.username = 'Profile';
     }
 
-    //this.fetchCartCount();
+    // Fetch cart count on initialization
     // Subscribe to reactive cart count updates
-    this.cartCountSub = this.bookService.cartCount$.subscribe(count => {
+    this.cartCountSub = this.bookService.cartCount$.subscribe(count => 
+    {
       this.cartItemCount = count;
     });
 
   }
 
+  //for searching
   onSearchTermChange(term: string) 
   {
       this.searchService.setSearchTerm(term);
   }
 
-  ngOnDestroy(): void {
-    if (this.cartCountSub) {
+  ngOnDestroy(): void 
+  {
+    if (this.cartCountSub) 
+    {
       this.cartCountSub.unsubscribe();
     }
   }
@@ -112,25 +112,34 @@ export class DashboardComponent implements OnInit
     this.router.navigate(['/auth']); 
   }
 
-  getCartCount() {
-  this.bookService.getCartItems().subscribe((cartItems: any) => {
-    this.cartItemCount = cartItems.length; // or sum of quantities if needed
-  });
-}
+  //to get cart count
+  // This method can be called when the cart is updated
+  getCartCount() 
+  {
+    this.bookService.getCartItems().subscribe((cartItems: any) => 
+    {
+      this.cartItemCount = cartItems.length;
+    });
+  }
 
-fetchCartCount() {
-  this.bookService.getCartItems().subscribe({
-    next: (res: any) => {
-      if (res.success) {
-        this.cartItemCount = res.data.items.reduce(
-          (total: number, item: any) => total + item.quantity,0 );
+  // Fetch cart count
+  // This method can be called when the cart is updated 
+  fetchCartCount() 
+  {
+    this.bookService.getCartItems().subscribe({
+      next: (res: any) => 
+      {
+        if (res.success) 
+        {
+          this.cartItemCount = res.data.items.reduce(
+            (total: number, item: any) => total + item.quantity,0 );
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching cart count:', err);
       }
-    },
-    error: (err) => {
-      console.error('Error fetching cart count:', err);
-    }
-  });
-}
+    });
+  }
 
 
 }
