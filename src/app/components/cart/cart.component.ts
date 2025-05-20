@@ -16,9 +16,6 @@ export class CartComponent implements OnInit
   cartItems: any[] = [];
 
   addresses = ['BridgeLabz Solutions LLP, Noida']; 
-
- // @Output() goHome = new EventEmitter<void>();
-  //@Output() cartUpdated = new EventEmitter<void>();
   
   showPlaceOrderButton = true;
 
@@ -30,7 +27,8 @@ export class CartComponent implements OnInit
     this.router.navigate(['/dashboard/home'])
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
 
     this.fetchCartItems();
 
@@ -55,7 +53,8 @@ export class CartComponent implements OnInit
     private router : Router) {}
 
 
-  placeOrder() {
+  placeOrder() 
+  {
     this.showPlaceOrderButton = false;
     this.addressPanel.open();
   }
@@ -68,7 +67,7 @@ export class CartComponent implements OnInit
     {
       this.isSubmitting = true;
       console.log(this.addressForm.value);
-      this.summaryPanel.open(); // or await if it's async
+      this.summaryPanel.open();
       this.isSubmitting = false;
     } 
     else 
@@ -77,40 +76,49 @@ export class CartComponent implements OnInit
     }
 }
 
-
-  fetchCartItems() {
+//get cart items
+  fetchCartItems() 
+  {
     this.bookService.getCartItems().subscribe({
-      next: (res:any) => {
-        if (res.success) {
+      next: (res:any) => 
+      {
+        if (res.success) 
+        {
           this.cartItems = res.data.items;
         }
       },
-      error: (err : any) => {
+      error: (err : any) => 
+      {
         console.error('Error fetching cart items:', err);
         this.snackbar.open('Failed to load cart items.', 'Close', { duration: 3000 });
       }
     });
   }
 
-  increaseQty(book: any) {
+ //increase quantity 
+  increaseQty(book: any) 
+  {
     const updatedQty = book.quantity + 1;
     this.bookService.updateCartQuantity(book.bookId, updatedQty).subscribe({
-      next: () => {
+      next: () => 
+      {
         book.quantity = updatedQty;
-        // this.cartUpdated.emit(); //Emit when updated
         this.snackbar.open('Quantity Increased!', 'Close', { duration: 3000 });
       },
       error: (err) => console.error('Error increasing quantity:', err)
     });
   }
 
-  decreaseQty(book: any) {
-    if (book.quantity > 1) {
+  //decrease quantity in cart
+  decreaseQty(book: any) 
+  {
+    if (book.quantity > 1) 
+    {
       const updatedQty = book.quantity - 1;
       this.bookService.updateCartQuantity(book.bookId, updatedQty).subscribe({
-        next: () => {
+        next: () => 
+        {
           book.quantity = updatedQty;
-          // this.cartUpdated.emit(); //Emit when updated
           this.snackbar.open('Quantity Decreased!', 'Close', { duration: 3000 });
         },
         error: (err) => console.error('Error decreasing quantity:', err)
@@ -118,18 +126,20 @@ export class CartComponent implements OnInit
     }
   }
 
+  //remove book from cart
   removeFromCart(book: any) 
   {
     this.bookService.updateCartQuantity(book.bookId, 0).subscribe({
-      next: () => {
+      next: () => 
+      {
         this.cartItems = this.cartItems.filter(b => b.bookId !== book.bookId);
-        // this.cartUpdated.emit(); //Emit when updated
         this.snackbar.open('Item removed from cart', 'Close', { duration: 3000 });
       },
       error: (err) => console.error('Error removing item:', err)
     });
   }
 
+  // to calculate total amount of the cart
   get totalAmount(): number 
   {
     return this.cartItems.reduce((total, item) => total + item.unitPrice * item.quantity, 0);
@@ -137,28 +147,47 @@ export class CartComponent implements OnInit
 
 
   // Triggered when user clicks on Place Order
-  purchaseBooks() {
+  purchaseBooks() 
+  {
   // Optional: disable button or show loading spinner
-  if (this.cartItems.length === 0) {
-    this.snackbar.open('Your cart is empty!', 'Close', { duration: 3000 });
-    return;
-  }
-
-  this.bookService.placeOrder().subscribe({
-    next: (res: any) => {
-      if (res.success) {
-        this.snackbar.open('Order placed successfully!', 'Close', { duration: 3000 });
-        this.router.navigate(['/dashboard/purchase']); // or wherever your order confirmation page is
-      } else {
-        this.snackbar.open('Failed to place order. Please try again.', 'Close', { duration: 3000 });
-      }
-    },
-    error: (err: any) => {
-      console.error('Purchase error:', err);
-      this.snackbar.open('Something went wrong!', 'Close', { duration: 3000 });
+    if (this.cartItems.length === 0) 
+    {
+      this.snackbar.open('Your cart is empty!', 'Close', { duration: 3000 });
+      return;
     }
-  });
-}
+
+      this.bookService.placeOrder().subscribe({
+      next: (res: any) => 
+      {
+        if (res.success) 
+        {
+            this.snackbar.open('Order placed successfully!', 'Close', { duration: 3000 });
+            
+            // Refresh the cart count
+              this.bookService.loadCartCount();
+
+            // Pass orderId using state
+            if (res.success && res.data.length > 0) 
+            {
+            const orderId = res.data[0].orderId;
+            this.router.navigate(['/dashboard/purchase'], 
+            {
+              state: { orderId }
+            });
+          }
+        } 
+        else 
+        {
+          this.snackbar.open('Failed to place order. Please try again.', 'Close', { duration: 3000 });
+        }
+      },
+      error: (err: any) => 
+      {
+        console.error('Purchase error:', err);
+        this.snackbar.open('Something went wrong!', 'Close', { duration: 3000 });
+      }
+    });
+  }
 
 
 }
