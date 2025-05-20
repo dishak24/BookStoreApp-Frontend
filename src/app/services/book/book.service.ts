@@ -153,31 +153,22 @@ export class BookService
 
 
   // Load and update the cart count BehaviorSubject
-  loadCartCount() 
-  {
-    this.getCartItems().subscribe({
-      next: (res: any) => 
-      {
-        if (res.success && res.data?.items) 
-        {
-          const count = res.data.items.reduce(
-            (total: number, item: any) => total + item.quantity,
-            0
-          );
-          this.cartCountSubject.next(count);
-        } 
-        else 
-        {
-          this.cartCountSubject.next(0);
-        }
-      },
-      error: err => 
-      {
-        console.error('Error loading cart count:', err);
+  loadCartCount() {
+  this.getCartItems().subscribe({
+    next: (res: any) => {
+      if (res.success && res.data?.items) {
+        const count = res.data.items.length; // Only count distinct items
+        this.cartCountSubject.next(count);
+      } else {
         this.cartCountSubject.next(0);
       }
-    });
-  }
+    },
+    error: err => {
+      console.error('Error loading cart count:', err);
+      this.cartCountSubject.next(0);
+    }
+  });
+}
 
   //get order history
   getOrderHistory()
