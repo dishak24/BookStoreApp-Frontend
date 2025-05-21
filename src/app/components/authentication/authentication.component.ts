@@ -114,9 +114,6 @@ export class AuthenticationComponent
           mobile: formData.mobile
         };
     
-        localStorage.setItem('userData', JSON.stringify(userData));
-        console.log('User data saved to local storage:', userData);
-    
         const payload = 
         {
           fullName: this.RegisterForm.value.fullName,
@@ -125,14 +122,10 @@ export class AuthenticationComponent
           mobile: this.RegisterForm.value.mobile
         };
     
-        // Checking payload values
-        console.log('Payload:', payload);
-    
         this.user.register(payload).subscribe(
         {
           next: (result) => 
           {
-            console.log('User registered successfully!', result);
             
             // Show success Snackbar
             this.snackbar.open('Registration successful !', 'Close', 
@@ -165,7 +158,8 @@ export class AuthenticationComponent
   onSubmit() 
   {
 
-    if (this.LoginForm.invalid) {
+    if (this.LoginForm.invalid) 
+    {
       const emailControl = this.LoginForm.get('email');
       const passwordControl = this.LoginForm.get('password');
   
@@ -207,7 +201,6 @@ export class AuthenticationComponent
       }
       return;
     }
-    console.log("Login data:", this.LoginForm.value);
 
     const payload = 
     {
@@ -218,8 +211,6 @@ export class AuthenticationComponent
     this.user.login(payload).subscribe({
       next: (result: any) => 
       {
-        console.log('Login successful:', result);
-
         //Normalize token to ensure "Bearer " prefix
         // Clean token and store it in localStorage
         let token = result.data.accessToken;

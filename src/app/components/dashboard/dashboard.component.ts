@@ -57,7 +57,6 @@ export class DashboardComponent implements OnInit
       const user = JSON.parse(userData);
       const fullName = user; 
       this.username = fullName.split(' ')[0]; //to get first name
-      console.log("Current logged User:", this.username);
     }
     else 
     {

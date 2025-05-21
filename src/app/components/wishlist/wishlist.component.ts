@@ -36,7 +36,6 @@ export class WishlistComponent
     this.bookService.getWishlist().subscribe({
       next: (res: any) => 
       {
-        console.log('Wishlist fetched successfully!', res);
         this.wishlistBooks = res.data; // Assign to local variable
       },
       error: (err: any) => 
@@ -55,7 +54,6 @@ export class WishlistComponent
     this.bookService.removeFromWishlist(bookId).subscribe({
       next: (res: any) => 
       {
-        console.log('Removed from wishlist.', res);
 
         this.snackBar.open('Book removed from wishlist!', 'Close', {
           duration: 3000,
