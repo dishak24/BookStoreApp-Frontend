@@ -209,6 +209,12 @@
       font-size: 14px;
     }
 
+    // .total-price
+    // {
+    //   margin-left: -1%;
+    //   //margin-right: -10%;
+    // }
+
     .remove-link {
       margin-right: 20%;
       font-size: 13px;
@@ -314,6 +320,15 @@
   padding: 0 16px;
 }
 
-
+/* Responsive fix */
+@media (max-width: 768px) {
+  .total-price {
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 16px;
+    margin-left: 0;
+    padding: 10px 0;
+  }
+}
 
 

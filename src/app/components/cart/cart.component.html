@@ -62,7 +62,7 @@
         <mat-panel-title>Address Details</mat-panel-title>
       </mat-expansion-panel-header>
 
-  <form [formGroup]="addressForm" (ngSubmit)="continueToSummary()" novalidate>
+  <form *ngIf="addressForm" [formGroup]="addressForm" (ngSubmit)="continueToSummary()" novalidate>
   <div class="address-form">
     <div class="row">
       <mat-form-field appearance="outline" class="half-width">
