@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterModule, Routes } from '@angular/router';
 import { AuthenticationComponent } from './components/authentication/authentication.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
@@ -9,6 +9,8 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { CartComponent } from './components/cart/cart.component';
 import { OrderPlaceComponent } from './components/order-place/order-place.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
+
+import { LoaderService } from './services/loader/loader.service';
 
 const routes: Routes = 
 [
@@ -41,4 +43,24 @@ const routes: Routes =
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule 
+{ 
+  constructor(private router: Router, private loader: LoaderService) 
+  {
+    this.router.events.subscribe(event => 
+    {
+      if (event instanceof NavigationStart) 
+      {
+        this.loader.show();
+      } 
+      else if (
+        event instanceof NavigationEnd ||
+        event instanceof NavigationCancel ||
+        event instanceof NavigationError
+      ) 
+      {
+        this.loader.hide();
+      }
+    });
+  }
+}
