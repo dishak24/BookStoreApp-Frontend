@@ -21,7 +21,9 @@
   <!-- books display -->
   <div class="books-grid">
     <div class="book-card" 
+     [class.out-of-stock]="book.quantity === 0" 
     *ngFor="let book of filteredBooks | pagination: currentPage : pageSize"
+    [matTooltip]="book.quantity === 0 ? 'Out of Stock' : ''"
     
     (click)="onBookClick(book)">
       <!-- <div div class="image-wrapper"> -->

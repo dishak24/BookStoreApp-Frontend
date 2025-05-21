@@ -51,7 +51,8 @@
   align-items: center;
   height: 350px;
   border-bottom: 1px solid #ddd;
-  
+  text-align: left;
+  //align-items: flex-start; /* <<< KEY PART */
   
 }
 
@@ -76,6 +77,7 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  margin-left: -30%;
 }
 
 .book-info h3 
@@ -86,6 +88,7 @@
   line-height: 1.2;
   margin-right: auto;
  // margin-left: -35%;
+ margin-left: -3%;
 }
 
 .book-info .author {
@@ -93,6 +96,7 @@
   color: #666;
   margin-bottom: 8px;
   margin-right: auto;
+  margin-left: -3%;
   
 }
 
@@ -102,6 +106,7 @@
   align-items: center;
   font-size: 13px;
   margin-bottom: 10px;
+  margin-left: -3%;
 }
 
 .rating-value {
@@ -112,18 +117,21 @@
   font-weight: 500;
   display: inline-flex;
   align-items: center;
+  margin-left: -3%;
 }
 
 .star-icon {
   font-size: 14px;
   margin-left: 2px;
   margin-top: 7px;
+  margin-left: -3%;
 }
 
 .rating-count {
   color: #757575;
   margin-left: 6px;
   font-weight: 400;
+  //margin-left: -3%;
 }
 
 .price {
@@ -131,10 +139,12 @@
   gap: 8px;
   align-items: center;
   font-weight: 700;
+  margin-left: -3%;
 }
 
 .price .new {
   color: #212121;
+  margin-left: -3%;
 }
 
 .price .old {
@@ -143,6 +153,8 @@
   font-weight: 400;
   font-size: 14px;
 }
+
+
 
 .stock-overlay 
 {
@@ -161,6 +173,14 @@
   user-select: none;
   width: 160px;
   text-align: center;
+}
+
+//out of stock color change
+.book-card.out-of-stock {
+  //background-color: gainsboro !important; /* Light gray background */
+  filter: grayscale(100%); /* Optional: makes the image/text appear grayed */
+  //pointer-events: none; /* Optional: disable click */
+  opacity: 0.8;
 }
 
 .books-grid 
