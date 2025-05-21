@@ -223,12 +223,15 @@ export class AuthenticationComponent
         //Normalize token to ensure "Bearer " prefix
         // Clean token and store it in localStorage
         let token = result.data.accessToken;
+        let refreshToken = result.data.refreshToken;
         if (token.startsWith('Bearer ')) 
         {
           token = token.replace('Bearer ', '');
         }
       // Store the token in localStorage
-        localStorage.setItem('Token', token);
+        localStorage.setItem('accessToken', token);
+        localStorage.setItem('refreshToken', refreshToken);
+
         localStorage.setItem('user', JSON.stringify(result.data.name));
 
         this.snackbar.open('Login successful!', 'Close', 
