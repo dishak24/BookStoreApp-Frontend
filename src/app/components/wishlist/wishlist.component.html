@@ -1,6 +1,6 @@
 <div class="wishlist-container">
   <nav class="breadcrumb">
-  <span class="breadcrumb-item" (click)="navigateHome()" style="cursor: pointer;">Home</span> /
+  <span class="breadcrumb-item" (click)="navigateHome()" style="cursor: pointer;" [matTooltip]=" 'Goto Home'">Home</span> /
   <span class="breadcrumb-current">My Wishlist</span>
 </nav>
 
@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <button mat-icon-button color="warn" class="remove-button" (click)="removeFromWishlist(book.bookId)">
+      <button mat-icon-button color="warn" class="remove-button" (click)="removeFromWishlist(book.bookId)" [matTooltip]=" 'Remove from Wishlist'">
         <mat-icon>delete_outline</mat-icon>
       </button>
     </div>

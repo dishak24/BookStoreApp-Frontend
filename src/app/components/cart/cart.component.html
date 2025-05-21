@@ -1,6 +1,6 @@
 <div class="cart-container">
   <div class="breadcrumbs">
-    <span (click)="goHome()" style="cursor: pointer;">Home /</span>
+    <span (click)="goHome()" style="cursor: pointer;" [matTooltip]=" 'Goto Home'">Home /</span>
     <span class="active">My cart</span>
   </div>
 
@@ -37,10 +37,10 @@
         </div>
 
         <div class="qty-row">
-          <button mat-mini-button (click)="decreaseQty(book)" [disabled]="book.quantity <= 1">−</button>
+          <button mat-mini-button (click)="decreaseQty(book)" [disabled]="book.quantity <= 1" [matTooltip]=" 'Decrease quantity'">−</button>
           <span class="qty">{{ book.quantity }}</span>
-          <button mat-mini-button (click)="increaseQty(book)">+</button>
-          <span class="remove-link" (click)="removeFromCart(book)">Remove</span>
+          <button mat-mini-button (click)="increaseQty(book)" [matTooltip]=" 'Increase quantity'">+</button>
+          <span class="remove-link" (click)="removeFromCart(book)" [matTooltip]=" 'Delete from Cart'">Remove</span>
         </div>
       </div>
     </div>
