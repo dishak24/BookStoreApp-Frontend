@@ -39,6 +39,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { OrderPlaceComponent } from './components/order-place/order-place.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './services/token-interceptor/token-interceptor.service';
+import { LoaderComponent } from './components/loader/loader.component';
+
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -53,6 +59,7 @@ import { OrderHistoryComponent } from './components/order-history/order-history.
     CartComponent,
     OrderPlaceComponent,
     OrderHistoryComponent,
+    LoaderComponent,
     
   ],
   imports: [
@@ -77,10 +84,18 @@ import { OrderHistoryComponent } from './components/order-history/order-history.
     MatSelectModule,
     MatBadgeModule,
     MatExpansionModule,
-    MatRadioModule
+    MatRadioModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule
 
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
