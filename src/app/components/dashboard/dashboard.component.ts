@@ -132,7 +132,7 @@ export class DashboardComponent implements OnInit
   }
 
   // Fetch cart count
-  // This method can be called when the cart is updated 
+  //to add cart count
   fetchCartCount() 
   {
     this.bookService.getCartItems().subscribe({
