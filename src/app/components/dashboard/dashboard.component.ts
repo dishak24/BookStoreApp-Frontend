@@ -6,6 +6,7 @@ import { BookService } from 'src/app/services/book/book.service';
 import { Subscription } from 'rxjs';
 
 import { SearchingService } from 'src/app/services/search/searching.service'; // adjust path as needed
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +21,8 @@ export class DashboardComponent implements OnInit
     private router: Router, 
     private dialog: MatDialog,
     private bookService: BookService,
-    private searchService: SearchingService     
+    private searchService: SearchingService,
+    private snackbar: MatSnackBar     
   ) { }
 
   //for searching
@@ -105,9 +107,17 @@ export class DashboardComponent implements OnInit
   // Logout function
   logout() 
   {
-    //Remove token from local storage
-    localStorage.removeItem('Token'); 
+    //Remove token from local storage    
+    localStorage.removeItem('user');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+
     console.log('User logged out !!!!'); 
+    // Optionally show a message
+  this.snackbar.open('You have been logged out.', 'Close', {
+    duration: 3000,
+    panelClass: ['info-snackbar']
+  });
     // Navigate to the login page
     this.router.navigate(['/auth']); 
   }
