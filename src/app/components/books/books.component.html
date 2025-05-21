@@ -6,8 +6,8 @@
         <div class="sort-dropdown">
           <button (click)="toggleSortMenu()">
             Sort by {{ selectedSortLabel }}
-            <span [class.rotated]="isSortMenuOpen"><mat-icon>keyboard_arrow_down</mat-icon></span>
-            <!-- <span [class.rotated]="!isSortMenuOpen"><mat-icon>keyboard_arrow_up</mat-icon></span> -->
+            <span [class.rotated]="isSortMenuOpen" *ngIf="isSortMenuOpen"><mat-icon class="arrow">keyboard_arrow_down</mat-icon></span>
+            <span [class.rotated]="!isSortMenuOpen" *ngIf="!isSortMenuOpen"><mat-icon class="arrow">keyboard_arrow_up</mat-icon></span>
           </button>
           <ul *ngIf="isSortMenuOpen" class="sort-options">
             <li (click)="sortBooks('Relevance')">Relevance</li>
