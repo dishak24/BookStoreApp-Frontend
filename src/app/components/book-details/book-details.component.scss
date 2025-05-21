@@ -167,7 +167,10 @@ button[disabled] {
   border-radius: 4px;
   padding: 4px 8px;
   gap: 6px;
-  height: 5%;
+  height: 28px;
+  width: 152px;
+  border: #000 solid 1px;
+  
 }
 
 .qty {
@@ -427,6 +430,13 @@ textarea {
   {
     width: 100%;
      margin-left: 0%;
+  }
+
+  .quantity-control {
+    width: 90%;
+    margin-left: 3%;
+    margin-top: 10px;
+    justify-content: space-between;
   }
 
 }

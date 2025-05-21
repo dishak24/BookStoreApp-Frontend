@@ -1,7 +1,8 @@
 
-<div *ngIf="book" class="book-detail-container">
-  <!-- Breadcrumb -->
-  <p class="breadcrumb" (click)="goBack()">Home<span> / Book({{ book.bookId }})</span></p>
+<div *ngIf="book" class="book-detail-container"
+    [matTooltip]="book.quantity === 0 ? 'Out of Stock' : ''">
+      <!-- Breadcrumb -->
+      <p class="breadcrumb" (click)="goBack()">Home<span> / Book({{ book.bookId }})</span></p>
 
   <div class="book-detail-grid">
     <!-- Side Thumbnails -->
@@ -30,11 +31,11 @@
 
               <ng-template #quantityTemplate>
                 <div class="quantity-control">
-                  <button mat-icon-button (click)="decreaseQty(book)">
+                  <button mat-icon-button (click)="decreaseQty(book)" [matTooltip]=" 'Decrease quantity'">
                     <mat-icon>remove</mat-icon>
                   </button>
                   <span class="qty">{{ book.quantity }}</span>
-                  <button mat-icon-button (click)="increaseQty(book)">
+                  <button mat-icon-button (click)="increaseQty(book)" [matTooltip]=" 'Increase quantity'">
                     <mat-icon>add</mat-icon>
                   </button>
                 </div>
