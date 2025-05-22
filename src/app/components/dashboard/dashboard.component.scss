@@ -187,14 +187,14 @@
 @media (max-width: 768px) {
   .search-container,
   .custom-search {
-    max-width: 140px !important;
-    min-width: 100px;
+    max-width: 200px !important;
+    min-width: 160px;
     flex: none;
   }
 
   .logo {
     font-size: 1rem;
-    margin-left: 40px;
+    margin-left: 20px;
     margin-right: 20px;
   }
 
@@ -206,8 +206,8 @@
   .right-section {
     gap: 8px;
     flex-shrink: 0;
-    margin-left: 40px;
-    margin-right: 20px;
+    margin-left: 50px;
+    margin-right: 10px;
   }
 
   .icon-with-label {
